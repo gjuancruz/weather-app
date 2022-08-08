@@ -11,7 +11,7 @@ export default function App() {
   const apiKey = '0a52c83f44985ce5e9183dc6ac94a7c1'
 
   function onSearch(city) {
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
       .then(r => r.json())
       .then((recurso) => {
         if(recurso.main !== undefined){
