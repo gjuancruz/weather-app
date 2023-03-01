@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Nav from './components/Nav.jsx'
 import Cards from './components/Cards.jsx'
@@ -14,7 +14,7 @@ export default function App() {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
       .then(r => r.json())
       .then((recurso) => {
-        if(recurso.main !== undefined){
+        if (recurso.main !== undefined) {
           const city = {
             min: Math.round(recurso.main.temp_min),
             max: Math.round(recurso.main.temp_max),
@@ -34,41 +34,36 @@ export default function App() {
         }
       });
 
-    }
- function onClose(id){
-  setCities(oldCities => oldCities.filter(c=>c.id !== id))
- }
+  }
+  function onClose(id) {
+    setCities(oldCities => oldCities.filter(c => c.id !== id))
+  }
   function onFilter(cityId) {
     let ciudad = cities.filter(c => c.id === parseInt(cityId));
-    if(ciudad.length > 0) {
-        return ciudad[0];
+    if (ciudad.length > 0) {
+      return ciudad[0];
     } else {
-        return null;
+      return null;
     }
   }
- 
+
   return (
     <div className="App">
-      <Route
-      path= '/'
-      render={()=><Nav onSearch={onSearch}/>}
+      <Route path='/'
+        render={() => <Nav onSearch={onSearch} />}
       />
-      <Route
-    exact path='/about'
-    component={About}
-/>
-<Route
-exact path='/'
- render={()=><Cards cities={cities} onClose = {onClose} />}
- />
- <Route
-    exact
-    path='/city/:cityId'
-    render={({match}) => <City
-          city={onFilter(match.params.cityId)}
+      <Route exact path='/about'
+        component={About}
+      />
+      <Route exact path='/'
+        render={() => <Cards cities={cities} onClose={onClose} />}
+      />
+      <Route exact path='/city/:cityId'
+        render={({ match }) => <City
+        city={onFilter(match.params.cityId)}
         />}
-  />
- </div>
+      />
+    </div>
   );
-  }
+}
 
